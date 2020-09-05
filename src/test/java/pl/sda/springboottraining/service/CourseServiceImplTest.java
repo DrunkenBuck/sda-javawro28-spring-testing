@@ -2,6 +2,7 @@ package pl.sda.springboottraining.service;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -13,6 +14,7 @@ import pl.sda.springboottraining.repository.model.Participant;
 
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class CourseServiceImplTest {
@@ -53,11 +55,22 @@ class CourseServiceImplTest {
 
 
         // verify
+        assertEquals(1, testCourse.getParticipants().size());
         assertTrue(testCourse.getParticipants().contains(testParticipant));
+
+
+        assertEquals(1, testParticipant.getCourses().size());
         assertTrue(testParticipant.getCourses().contains(testCourse));
 
         Mockito.verify(emailService, Mockito.times(1))
                 .sendSimpleMessage(testParticipant.getEmail(), "Nowy kurs", "Zostałeś przypisany do kursu: " + testCourse.getName());
+    }
+
+    @Test
+    public void test_findParticipantsByCourseId() {
+        // testy gdy cos jest
+        // testy -> zwroc pusta liste gdy nie ma nic
+
     }
 
 }
