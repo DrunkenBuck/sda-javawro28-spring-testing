@@ -53,7 +53,7 @@ public class IntegrationTest {
 
         mockMvc.perform(MockMvcRequestBuilders.post("/course")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(testCourse))
-        ).andExpect(MockMvcResultMatchers.status().isOk());
+                .content(objectMapper.writeValueAsString(testCourse)))
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 }
