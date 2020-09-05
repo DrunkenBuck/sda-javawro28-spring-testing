@@ -4,8 +4,15 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -28,13 +35,13 @@ public class Course {
 
     @JsonIgnore
     @ManyToMany(mappedBy = "courses", fetch = FetchType.LAZY)
-    private Set<Participant> participants;
+    private Set<Participant> participants = new HashSet<>();
 
-    public void addParticipant(Participant participant){
+    public void addParticipant(Participant participant) {
         participants.add(participant);
     }
 
-    public void removeParticipant(Participant participant){
+    public void removeParticipant(Participant participant) {
         participants.remove(participant);
     }
 }
