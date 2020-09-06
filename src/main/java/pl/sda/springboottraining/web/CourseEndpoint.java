@@ -1,6 +1,7 @@
 package pl.sda.springboottraining.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,8 +35,13 @@ public class CourseEndpoint {
     }
 
     @PostMapping
-    public void addCourse(@RequestBody Course course) {
-        courseService.create(course);
+    public ResponseEntity addCourse(@RequestBody Course course) {
+        if (course.getName().length() < 3) {
+            return ResponseEntity.badRequest().body("Course name has to be longer than 3 characters");
+        } else {
+            courseService.create(course);
+            return ResponseEntity.status(HttpStatus.CREATED).body(course);
+        }
     }
 
     @GetMapping("/{id}")
